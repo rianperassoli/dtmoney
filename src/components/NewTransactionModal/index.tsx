@@ -5,6 +5,7 @@ import outcomeImg from '../../assets/outcome.svg'
 import closeImg from '../../assets/close.svg'
 
 import { Container, TransactionTypeContainer, RadioBox } from './styles'
+import { api } from '../../services/api'
 
 Modal.setAppElement('#root')
 
@@ -20,8 +21,12 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   const [category, setCategory] = useState('')
   const [type, setType] = useState('deposit')
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault()
+
+    const data = { title, value, category, type }
+
+    await api.post('transactions', data)
   }
 
   return (
